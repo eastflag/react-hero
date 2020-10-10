@@ -15,16 +15,19 @@ export const Heroes = (props) => {
   }
 
   return (
-    <ul className="img-box">
+    <div className="row">
       {heroes.map(hero => (
-        <li key={hero.id} className="row align-items-center m-0">
-          <div className="col-1 py-2">
+        <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-3 p-md-3" key={hero.id}>
+          <div className="card">
             <img src={hero.photo ? hero.photo : process.env.PUBLIC_URL + '/images/face-black-18dp.svg'}
-                 alt={hero.name} style={{width: '100%'}}></img>
+                 style={{width: '100%'}} alt={hero.name}></img>
+            <div className="card-body">
+              <h5 className="card-title">{hero.name}</h5>
+              <p className="card-text">email: {hero.email}</p>
+            </div>
           </div>
-          <span className="col">{hero.name}</span>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   )
 }
