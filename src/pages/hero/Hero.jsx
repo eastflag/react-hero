@@ -5,6 +5,7 @@ import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import api from "../../utils/api";
 import {useDispatch} from "react-redux";
 import {refreshHero} from "../../redux/actions";
+import {useToasts} from "react-toast-notifications";
 
 export const Hero = (props) => {
   console.log('View: ', props);
@@ -18,6 +19,8 @@ export const Hero = (props) => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
+  const {addToast} = useToasts();
+
   const handleDelete = () => {
     toggle();
     api.delete(`/api/admin/hero?id=${props.match.params.id}`)
@@ -27,6 +30,7 @@ export const Hero = (props) => {
 
         // publish to parent
         dispatch(refreshHero());
+        addToast('삭제되었습니다.', { appearance: 'success', autoDismiss: true });
       });
   }
 

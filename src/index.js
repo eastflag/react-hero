@@ -8,11 +8,14 @@ import * as serviceWorker from './serviceWorker';
 import {Root} from "./pages/Root";
 import {store} from "./redux/store";
 import {Provider} from "react-redux";
+import {ToastProvider} from 'react-toast-notifications';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Root/>
+      <ToastProvider placement="top-center">
+        <Root/>
+      </ToastProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
