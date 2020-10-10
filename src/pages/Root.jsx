@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {Heroes} from "./Heroes";
+import {Heroes} from "./heroes/Heroes";
 import {Home} from "./Home";
 import {Scoreboard} from "./Scoreboard";
 import {Product} from "./Product";
