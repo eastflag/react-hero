@@ -1,30 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem
+} from 'reactstrap';
 import {NavLink} from "react-router-dom";
 
 export const Menu = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <NavLink className="navbar-brand" to="/">Navbar</NavLink>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item active">
-            <NavLink className="nav-link" to="/">Home <span className="sr-only">(current)</span></NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/heroes">Heroes</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/scoreboard">Scoreboard</NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/product">Product</NavLink>
-          </li>
-        </ul>
+    <Navbar color="dark" dark expand="md">
+      <div className="container">
+        <NavLink to="/" className="navbar-brand">React</NavLink>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <NavLink to="/heroes" className="nav-link">Heroes</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/scoreboard" className="nav-link">Scoreboard</NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink to="/product" className="nav-link">Product</NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
       </div>
-    </nav>
+    </Navbar>
   )
 }
