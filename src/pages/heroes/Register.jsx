@@ -66,6 +66,25 @@ export const Register = (props) => {
         setPhoto('');
       });
   }
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+
+    // 선택된 화일이 없으면 리턴
+    console.log(e.target.files);
+    if (!e.target.files || e.target.files.length === 0) {
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('photo', e.target.files[0], e.target.files[0].name);
+    api.post('/api/admin/photo', formData)
+      .then(response => {
+        console.log(response.data);
+        setPhoto(response.data.data);
+      });
+  }
+
   return (
     <>
       <h3>Hero Registration</h3>
@@ -151,7 +170,17 @@ export const Register = (props) => {
           </div>
         </div>
 
-        {/*사진 등록 부분*/}
+        <div className="d-flex flex-column mt-3 align-items-start">
+          <div>사진등록</div>
+          <div className="custom-file">
+            <input type="file" className="custom-file-input" id="customFile" accept="image/*"
+                   onChange={handleUpload}></input>
+            <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+          </div>
+          {
+            photo ? <img src={photo} alt={name} style={{width: '200px'}}/> : ''
+          }
+        </div>
 
         <div className="m-3 d-flex justify-content-center">
           <button type="submit" className="btn btn-outline-primary">등록</button>
