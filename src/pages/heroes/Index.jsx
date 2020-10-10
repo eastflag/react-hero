@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavItem, Nav} from "reactstrap";
-import {NavLink, Switch, Route} from "react-router-dom";
+import {NavLink, Switch, Route, Redirect} from "react-router-dom";
 import {Heroes} from "./Heroes";
 import {Register} from "./Register";
 import './Index.scss';
@@ -19,6 +19,7 @@ export const Index = (props) => {
       <Switch>
         <Route path="/heroes/hero" component={Heroes}></Route>
         <Route path="/heroes/register" component={Register}></Route>
+        <Route path="/heroes" render={() => <Redirect to="/heroes/hero" />} />
       </Switch>
     </>
   )
