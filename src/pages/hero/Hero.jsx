@@ -1,59 +1,29 @@
-import React, {useEffect, useState} from 'react';
-import api from "../../utils/api";
+import React, {useState} from 'react';
+import {View} from "./View";
+import {Edit} from "./Edit";
 
 export const Hero = (props) => {
-  const [hero, setHero] = useState(null);
+  console.log('View: ', props);
+  const [is_edit, setIs_edit] = useState(false);
 
-  useEffect(() => {
-    getHero(props.match.params.id);
-  }, [props.match.params.id]);
-
-  const getHero = async (id) => {
-    let response = await api.get(`/api/user/hero/${id}`);
-    console.log(response);
-
-    if (response.data) {
-      setHero(response.data);
-    }
+  const handleEditMode = (e) => {
+    setIs_edit(!is_edit);
   }
 
   return (
-    hero ?
-      <div>
-        <table className="table">
-          <tbody>
-          <tr>
-            <th scope="row">Name</th>
-            <td>{hero.name}</td>
-          </tr>
-          <tr>
-            <th scope="row">Email</th>
-            <td>{hero.email}</td>
-          </tr>
-          <tr>
-            <th scope="row">Sex</th>
-            <td>{hero.sex}</td>
-          </tr>
-          <tr>
-            <th scope="row">Country</th>
-            <td>{hero.country}</td>
-          </tr>
-          <tr>
-            <th scope="row">Power</th>
-            <td>{hero.powers.toString()}</td>
-          </tr>
-          <tr>
-            <th scope="row">Photo</th>
-            <td>
-              {
-                hero.photo ? <img src={hero.photo} alt={hero.name} style={{maxWidth: '100%'}}></img> : ''
-              }
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <hr className="my-5" />
+    <>
+      <div className="d-flex justify-content-between align-items-center m-3">
+        <h3>{ is_edit ? 'Hero Edit' : 'Hero Detail View' }</h3>
+        <div>
+          { is_edit ? <button className="btn btn-info" onClick={handleEditMode}>취소</button> :
+            <button className="btn btn-success" onClick={handleEditMode}>수정</button>
+          }
+          <button className="btn btn-danger ml-3">삭제</button>
+        </div>
       </div>
-      : ''
-  )
+      {
+        is_edit ? <Edit id={props.match.params['id']}/> : <View id={props.match.params['id']} />
+      }
+    </>
+  );
 }
