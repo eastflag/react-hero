@@ -3,10 +3,13 @@ import {View} from "./View";
 import {Edit} from "./Edit";
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import api from "../../utils/api";
+import {useDispatch} from "react-redux";
+import {refreshHero} from "../../redux/actions";
 
 export const Hero = (props) => {
   console.log('View: ', props);
   const [is_edit, setIs_edit] = useState(false);
+  const dispatch = useDispatch();
 
   const handleEditMode = (e) => {
     setIs_edit(!is_edit);
@@ -21,6 +24,9 @@ export const Hero = (props) => {
       .then(response => {
         console.log(response.data);
         props.history.push('/heroes/hero'); // this.props.router.push('/heroes/hero'); 3.0.0+
+
+        // publish to parent
+        dispatch(refreshHero());
       });
   }
 

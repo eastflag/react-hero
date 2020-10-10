@@ -3,6 +3,7 @@ import api from "../../utils/api";
 import Pagination from 'rc-pagination';
 import {Switch, Route} from "react-router-dom";
 import {Hero} from "../hero/Hero";
+import {useSelector} from "react-redux";
 
 export const Heroes = (props) => {
   const [heroes, setHeroes] = useState([]);
@@ -10,9 +11,11 @@ export const Heroes = (props) => {
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const refresh_count = useSelector(state => state.heroReducer.refresh_count);
+
   useEffect(() => {
     getHeroes()
-  }, [currentPage]);
+  }, [currentPage, refresh_count]);
 
   const getHeroes = async () => {
     let response = await api.get(`/api/user/heroes?start_index=${pageSize * (currentPage - 1)}&page_size=${pageSize}`);
