@@ -21,6 +21,12 @@ export const Heroes = (props) => {
     setTotalCount(response.data.total);
   }
 
+  const handleClick = (event, id) => {
+    console.log(event, id);
+    event.preventDefault();
+    props.history.push(`/heroes/hero/${id}`);
+  }
+
   return (
     <>
       <Switch>
@@ -30,7 +36,8 @@ export const Heroes = (props) => {
       <div className="row">
         {heroes.map(hero => (
           <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-3 p-md-3" key={hero.id}>
-            <div className="card">
+            <div className="card" key={hero.id}
+                 onClick={(e) => handleClick(e, hero.id)} style={{cursor: 'pointer'}}>
               <img src={hero.photo ? hero.photo : process.env.PUBLIC_URL + '/images/face-black-18dp.svg'}
                    style={{width: '100%'}} alt={hero.name}></img>
               <div className="card-body">

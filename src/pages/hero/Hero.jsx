@@ -6,7 +6,7 @@ export const Hero = (props) => {
 
   useEffect(() => {
     getHero(props.match.params.id);
-  }, []);
+  }, [props.match.params.id]);
 
   const getHero = async (id) => {
     let response = await api.get(`/api/user/hero/${id}`);
