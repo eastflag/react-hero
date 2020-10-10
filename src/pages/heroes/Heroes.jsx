@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import api from "../../utils/api";
 
 export const Heroes = (props) => {
   const [heroes, setHeroes] = useState([]);
@@ -9,7 +9,7 @@ export const Heroes = (props) => {
   }, []);
 
   const getHeroes = async () => {
-    let response = await axios.get('http://api.eastflag.co.kr:8000/api/user/heroes');
+    let response = await api.get('/api/user/heroes');
     console.log(response);
     setHeroes(response.data.data);
   }
