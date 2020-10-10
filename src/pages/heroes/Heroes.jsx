@@ -5,17 +5,18 @@ import Pagination from 'rc-pagination';
 export const Heroes = (props) => {
   const [heroes, setHeroes] = useState([]);
   const [pageSize, setPageSize] = useState(10);
-  const [totalCount, setTotalCount] = useState(115);
+  const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     getHeroes()
-  }, []);
+  }, [currentPage]);
 
   const getHeroes = async () => {
-    let response = await api.get('/api/user/heroes');
+    let response = await api.get(`/api/user/heroes?start_index=${pageSize * (currentPage - 1)}&page_size=${pageSize}`);
     console.log(response);
     setHeroes(response.data.data);
+    setTotalCount(response.data.total);
   }
 
   return (
@@ -35,7 +36,8 @@ export const Heroes = (props) => {
         ))}
       </div>
 
-      <Pagination total={totalCount} current={currentPage} pageSize={pageSize} />
+      <Pagination total={totalCount} current={currentPage} pageSize={pageSize}
+                  onChange={(page) => setCurrentPage(page)} className="d-flex justify-content-center" />
     </>
   )
 }
