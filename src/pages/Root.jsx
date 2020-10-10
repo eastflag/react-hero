@@ -4,11 +4,12 @@ import {Heroes} from "./Heroes";
 import {Home} from "./Home";
 import {Scoreboard} from "./Scoreboard";
 import {Product} from "./Product";
+import {Menu} from "./Menu";
 
 export const Root = (props) => {
   return (
     <BrowserRouter>
-      <p>공통메뉴 영역</p>
+      <Menu></Menu>
       <Switch>
         <Route exact path="/" component={Home}></Route>
         <Route path="/heroes" component={Heroes}></Route>
