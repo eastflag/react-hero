@@ -15,11 +15,13 @@ export const Heroes = (props) => {
   }
 
   return (
-    <ul>
+    <ul className="img-box">
       {heroes.map(hero => (
-        <li key={hero.id}>
-          <img src={hero.photo} alt={hero.name}/>
-          <span>{hero.name}</span>
+        <li key={hero.id} className="row align-items-center m-0">
+          <div className="col-1 py-2">
+            <img src={hero.photo} alt={hero.name} className="img-fluid rounded-circle"></img>
+          </div>
+          <span className="col">{hero.name}</span>
         </li>
       ))}
     </ul>
