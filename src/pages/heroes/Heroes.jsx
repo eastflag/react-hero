@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import api from "../../utils/api";
 import Pagination from 'rc-pagination';
+import {Switch, Route} from "react-router-dom";
+import {Hero} from "../hero/Hero";
 
 export const Heroes = (props) => {
   const [heroes, setHeroes] = useState([]);
@@ -21,6 +23,10 @@ export const Heroes = (props) => {
 
   return (
     <>
+      <Switch>
+        <Route path="/heroes/hero/:id" component={Hero}></Route>
+      </Switch>
+
       <div className="row">
         {heroes.map(hero => (
           <div className="col-12 p-1 col-sm-4 p-sm-2 col-md-3 p-md-3" key={hero.id}>
