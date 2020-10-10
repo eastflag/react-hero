@@ -1,7 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 export const Heroes = (props) => {
+  const [heroes, setHeroes] = useState([]);
+
   useEffect(() => {
     getHeroes()
   }, []);
@@ -9,11 +11,17 @@ export const Heroes = (props) => {
   const getHeroes = async () => {
     let response = await axios.get('http://api.eastflag.co.kr:8000/api/user/heroes');
     console.log(response);
+    setHeroes(response.data.data);
   }
 
   return (
-    <div>
-      Heroes works!!
-    </div>
+    <ul>
+      {heroes.map(hero => (
+        <li key={hero.id}>
+          <img src={hero.photo} alt={hero.name}/>
+          <span>{hero.name}</span>
+        </li>
+      ))}
+    </ul>
   )
 }
