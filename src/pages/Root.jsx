@@ -10,7 +10,7 @@ export const Root = (props) => {
     <BrowserRouter>
       <p>공통메뉴 영역</p>
       <Switch>
-        <Route path="/" component={Home}></Route>
+        <Route exact path="/" component={Home}></Route>
         <Route path="/heroes" component={Heroes}></Route>
         <Route path="/scoreboard" component={Scoreboard}></Route>
         <Route path="/product" component={Product}></Route>
